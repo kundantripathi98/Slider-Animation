@@ -1,5 +1,5 @@
 let currentIndex = 1;
-let totalSlides = 7;
+let totalSlides = 3;
 
 const updateActiveSlides = () => {
     document.querySelectorAll(".title").forEach((el, index)=>{
@@ -12,7 +12,7 @@ const updateActiveSlides = () => {
 }
 
 const handleSlider = () => {
-    if(currentIndex > totalSlides){
+    if(currentIndex < totalSlides){
         currentIndex++;
     } else{
         currentIndex = 1;
@@ -50,7 +50,7 @@ const updateImages = (imgNumber) => {
 
     gsap.to([imgTop, imgBottom], {
         clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
-        transform: scale(1),
+        transform: "scale(1)",
         duration: 2,
         ease: "power4.out",
         stagger: 0.15,
@@ -75,6 +75,6 @@ const trimExcessImages = () => {
 document.addEventListener("DOMContentLoaded", ()=>{
     document.addEventListener("click", handleSlider);
 
-    updateImages(2);
+    updateImages(1);
     updateActiveSlides();
 })
