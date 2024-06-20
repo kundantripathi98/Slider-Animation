@@ -33,7 +33,29 @@ const handleSlider = () => {
 }
 
 const updateImages = (imgNumber) => {
-    let imgSrc = `${imgNumber}`
+    let imgSrc = `./assets/car${imgNumber}.webp`;
+    const imgTop = document.createElement("img");
+    const imgBottom = document.createElement("img");
+
+    imgTop.src = imgSrc;
+    imgBottom.src = imgSrc;
+
+    imgTop.style.clipPath = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
+    imgBottom.style.clipPath = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
+    imgTop.style.transform = "scale(2)";
+    imgBottom.style.transform = "scale(2)";
+
+    document.querySelector(".img-top").appendChild(imgTop);
+    document.querySelector(".img-bottom").appendChild(imgBottom);
+
+    gsap.to([imgTop, imgBottom], {
+        clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
+        transform: scale(1),
+        duration: 2,
+        ease: "power4.out",
+        stagger: 0.15,
+        onComplete: trimExcessImages,
+    })
 }
 
 const trimExcessImages = () => {
@@ -49,3 +71,10 @@ const trimExcessImages = () => {
         }
     })
 }
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    document.addEventListener("click", handleSlider);
+
+    updateImages(2);
+    updateActiveSlides();
+})
