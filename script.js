@@ -24,7 +24,11 @@ const handleSlider = () => {
                 updateActiveSlides();
             }, 100);
 
-            updateImages(currentIndex + 1);
+            if(currentIndex + 1 < 4){
+                updateImages(currentIndex + 1);
+            }else{
+                updateImages(1);
+            }
         },
         x: `-${(currentIndex - 1) * 11.1111}%`,
         duration: 2,
@@ -33,7 +37,7 @@ const handleSlider = () => {
 }
 
 const updateImages = (imgNumber) => {
-    let imgSrc = `./assets/car${imgNumber+1}.webp`;
+    let imgSrc = `./assets/car${imgNumber}.webp`;
     const imgTop = document.createElement("img");
     const imgBottom = document.createElement("img");
 
@@ -42,18 +46,20 @@ const updateImages = (imgNumber) => {
 
     // imgTop.style.clipPath = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
     // imgBottom.style.clipPath = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
-    // imgTop.style.transform = "scale(2)";
-    // imgBottom.style.transform = "scale(2)";
+    // imgTop.style.transform = "translateX(-100px)";
+    // imgBottom.style.transform = "translateX(-100px)";
 
     document.querySelector(".img-top").appendChild(imgTop);
     document.querySelector(".img-bottom").appendChild(imgBottom);
 
-    gsap.to([imgTop, imgBottom], {
+    gsap.from([imgTop, imgBottom], {
         // clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)",
         // transform: "translateX(100px)",
-        duration: 2,
+        opacity: 0,
+        transform: "translateX(-100px)",
+        duration: 1,
         ease: "power4.out",
-        stagger: 0.15,
+        // stagger: 0.15,
         onComplete: trimExcessImages,
     })
 }
@@ -64,7 +70,7 @@ const trimExcessImages = () => {
     selectors.forEach((selector)=>{
         const container = document.querySelector(selector);
         const images = Array.from(container.querySelectorAll("img"));
-        const excessCount = images.length - 5;
+        const excessCount = images.length - 1;
         
         if(excessCount > 0){
             images.slice(0, excessCount).forEach((image)=> container.removeChild(image));
@@ -73,10 +79,8 @@ const trimExcessImages = () => {
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    updateImages(currentIndex);
+    updateImages(2);
     document.addEventListener("click", handleSlider);
-
-    // 
     updateActiveSlides();
 })
 
