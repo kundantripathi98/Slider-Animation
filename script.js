@@ -1,5 +1,5 @@
 let currentIndex = 1;
-let totalSlides = 3;
+let totalSlides = 9;
 
 const updateActiveSlides = () => {
     document.querySelectorAll(".title").forEach((el, index)=>{
@@ -24,20 +24,20 @@ const handleSlider = () => {
                 updateActiveSlides();
             }, 100);
 
-            if(currentIndex + 1 < 4){
+            if(currentIndex + 1 < 10){
                 updateImages(currentIndex + 1);
             }else{
                 updateImages(1);
             }
         },
-        x: `-${(currentIndex - 1) * 11.1111}%`,
+        x: `-${(currentIndex - 1) * 8.690}%`,
         duration: 2,
         ease: "power4.out"
     });
 }
 
 const updateImages = (imgNumber) => {
-    let imgSrc = `./assets/car${imgNumber}.webp`;
+    let imgSrc = `./assets/car${imgNumber}-.jpg`;
     const imgTop = document.createElement("img");
     const imgBottom = document.createElement("img");
 
