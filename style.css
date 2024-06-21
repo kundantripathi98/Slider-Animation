@@ -96,6 +96,15 @@ img{
 }
 
 @media (max-width: 768px){
+    body{
+        overflow: hidden;
+    }
+
+    html{
+        max-height: 100vh;
+        max-width: 100vw;
+    }
+
     .slide-images{
         width: 100%;
         height: 100%;
